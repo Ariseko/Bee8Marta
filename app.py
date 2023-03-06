@@ -45,14 +45,15 @@ dp = Dispatcher(bot, storage=MemoryStorage())
 
 @dp.message_handler(commands=['start'])
 async def start(message: types.Message):
-    now = datetime.now()
-    dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+    if message.from_user.id not in real_names:
+        now = datetime.now()
+        dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
 
-    data = {
-        'date': f'{dt_string}',
-        'username': f'{message.from_user.username}',
-    }
-    r = requests.post(hookURL, data=json.dumps(data), headers={'Content-Type': 'application/json'})
+        data = {
+            'date': f'{dt_string}',
+            'username': f'{message.from_user.username}',
+        }
+        r = requests.post(hookURL, data=json.dumps(data), headers={'Content-Type': 'application/json'})
 
 
     await message.answer('Привет, весенняя 🌸\n\nСегодняшний день – только твой! Давай сделаем его еще волшебнее?',
@@ -388,14 +389,15 @@ async def finish1(callback: types.CallbackQuery):
 
 @dp.callback_query_handler(state=FSMtest.interviewStepFinal1)
 async def finish2(callback: types.CallbackQuery):
-    now = datetime.now()
-    dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+    if callback.from_user.id not in real_names:
+        now = datetime.now()
+        dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
 
-    data = {
-        'date': f'{dt_string}',
-        'username': f'{callback.from_user.username}',
-    }
-    r = requests.post(hookURL2, data=json.dumps(data), headers={'Content-Type': 'application/json'})
+        data = {
+            'date': f'{dt_string}',
+            'username': f'{callback.from_user.username}',
+        }
+        r = requests.post(hookURL2, data=json.dumps(data), headers={'Content-Type': 'application/json'})
 
     await bot.edit_message_reply_markup(chat_id=callback.from_user.id, message_id=callback.message.message_id,
                                         reply_markup=None)
