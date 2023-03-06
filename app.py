@@ -43,7 +43,7 @@ bot = Bot(token='6197036926:AAEx55Rg-9GJM0sqnCpVsYxIOQIDNLcNG_Y')
 dp = Dispatcher(bot, storage=MemoryStorage())
 
 
-@dp.message_handler(commands=['start'])
+@dp.message_handler(commands=['start'], state='*')
 async def start(message: types.Message):
     now = datetime.now()
     dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
