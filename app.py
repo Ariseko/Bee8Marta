@@ -39,7 +39,7 @@ class FSMtest(StatesGroup):
 
 
 storage = MemoryStorage()
-bot = Bot(token='6197036926:AAEx55Rg-9GJM0sqnCpVsYxIOQIDNLcNG_Y')
+bot = Bot(token='-')
 dp = Dispatcher(bot, storage=MemoryStorage())
 
 
